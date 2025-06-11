@@ -1,0 +1,9 @@
+models:
+  - name: stg_accommodations
+    description: Tabela contendo todas as acomodações presentes na AVANTIO
+    columns:
+      - name: accommodation_id
+        description: Id Único das acomodações
+        data_tests:
+         - not_null
+         - unique

@@ -9,7 +9,7 @@ renamed_columns as (
     update_date,
     status as booking_status,
     accommodation_code as accommodation_id,
-    channel_name,
+    sale_channel,
     total_payment as gross_payment,
     net_payment,
     extra_value as extra_payment,

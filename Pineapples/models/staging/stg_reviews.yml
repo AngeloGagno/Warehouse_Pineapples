@@ -1,5 +1,5 @@
 models:
-  - name: stg_owners
+  - name: stg_reviews
     description: Tabela contendo o registro de reservas
     columns:
     

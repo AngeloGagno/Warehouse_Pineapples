@@ -1,0 +1,10 @@
+models:
+  - name: stg_owners
+    description: Tabela contendo dados dos proprietarios
+    columns:
+    
+      - name: owner_id
+        description: Id Único de cada proprietario
+        data_tests:
+         - not_null
+         - unique

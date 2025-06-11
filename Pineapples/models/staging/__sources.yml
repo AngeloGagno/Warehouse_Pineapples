@@ -10,7 +10,7 @@ sources:
       - name: accommodations_margin
         description: Tabela contendo a margem operacional de cada apartamento
       - name: airbnb_reviews
-        description: Tabela contendo dados brutos de notas no portal airbnb_reviews
+        description: Tabela contendo dados brutos de notas no portal airbnb
       - name: atendimento_proprietario
         description: Tabela contendo registros de atendimento ao proprietario
       - name: bookings

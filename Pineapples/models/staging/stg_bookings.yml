@@ -1,0 +1,21 @@
+models:
+  - name: stg_bookings
+    description: Tabela contendo o registro de reservas
+    columns:
+    
+      - name: booking_id
+        description: Id Único de cada reserva
+        data_tests:
+         - not_null
+         - unique
+
+      - name: accommodation_id
+        description: Código do apartamento na AVANTIO
+        data_tests:
+          - not_null
+
+      - name: portal_reference
+        description: Id Único do Portal que foi realizado a reserva
+        data_tests:
+         - not_null
+         - unique

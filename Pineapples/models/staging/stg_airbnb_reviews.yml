@@ -1,0 +1,14 @@
+models:
+  - name: stg_airbnb_reviews
+    description: Tabela contendo dados brutos de notas no portal airbnb
+    columns:
+      - name: scrap_id
+        description: Id Único da raspagem de dados
+        data_tests:
+         - not_null
+         - unique
+      - name: accommodation_id
+        description: Código do apartamento na AVANTIO
+        data_tests:
+          - not_null
+          

@@ -1,4 +1,6 @@
-## O modelo é responsavel por renomear as colunas presentes da camada Extraida pela API(Raw) e alterações para limpeza das colunas.
+## Documentação de Transformações - Tabela `accommodations`
+
+Este modelo é responsável por renomear colunas da camada Raw (extraída via API) e aplicar transformações para limpeza, padronização e conversão de tipos de dados.
 
 ### Alterações Realizadas:
 

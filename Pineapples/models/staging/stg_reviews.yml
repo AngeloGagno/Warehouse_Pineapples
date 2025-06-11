@@ -1,0 +1,10 @@
+models:
+  - name: stg_owners
+    description: Tabela contendo o registro de reservas
+    columns:
+    
+      - name: booking_id
+        description: Id Único de cada reserva
+        data_tests:
+         - not_null
+         - unique

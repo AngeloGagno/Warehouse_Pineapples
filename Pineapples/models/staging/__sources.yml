@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: defaultdb
+    schema: public
+    description: Tabelas do banco de dados Pineapples
+    tables:
+      - name: accommodation
+        description: Tabela contendo todas as acomodações presentes na AVANTIO
+      - name: accommodations_margin
+        description: Tabela contendo a margem operacional de cada apartamento
+      - name: airbnb_reviews
+        description: Tabela contendo dados brutos de notas no portal airbnb_reviews
+      - name: atendimento_proprietario
+        description: Tabela contendo registros de atendimento ao proprietario
+      - name: bookings
+        description: Tabela contendo o registro de reservas
+      - name: owner
+        description: Tabela contendo dados dos proprietarios
+      - name: reviews
+        description: Tabela contendo avaliações em todos os portais

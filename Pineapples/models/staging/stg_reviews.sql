@@ -11,7 +11,7 @@ renamed_columns as (
     review_field,
     positive_review as positive_review_field,
     negative_review as negative_review_field,
-    review_value::numeric,
+    review_value::numeric as review_value,
     CASE WHEN service_value IN ('N/A', '-') THEN NULL ELSE service_value::numeric END AS service_value,
     CASE WHEN cleaning_value IN ('N/A', '-') THEN NULL ELSE cleaning_value::numeric END AS cleaning_value,
     CASE WHEN accommodation_value IN ('N/A', '-') THEN NULL ELSE accommodation_value::numeric END AS accommodation_value,

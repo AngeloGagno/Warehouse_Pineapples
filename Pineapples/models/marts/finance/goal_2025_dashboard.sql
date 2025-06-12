@@ -7,7 +7,6 @@ daily_rate AS (
     checkin_date AS date,
     gross_payment / NULLIF((checkout_date - checkin_date), 0) AS ADR,
     gross_payment,
-    1 AS bookings,
     gross_payment AS order_value,
     (checkout_date - checkin_date) AS nights
   FROM confirmed_bookings

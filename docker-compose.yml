@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  dbt:
+    build: .  # Isso faz o Docker Compose construir a imagem a partir do Dockerfile
+    container_name: dbt
+    environment:
+      - DBT_PROFILES_DIR=/root/.dbt
+    volumes:
+      - ./Pineapples:/usr/app/Pineapples
+      - ~/.dbt:/root/.dbt
+    working_dir: /usr/app/Pineapples
+    command: ["dbt", "run"]

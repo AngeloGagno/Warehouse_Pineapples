@@ -21,4 +21,4 @@ last_month as (
     review as avaliacao_geral, communication as comunicacao, checkin
     from refactor_columns order by competencia desc
 )
-select * from last_month 
+select * from last_month

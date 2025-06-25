@@ -6,4 +6,4 @@ todays_reviews as (
     select * from airbnb_reviews where scrap_data = CURRENT_DATE
     order by accommodation_name
 )
-select * from todays_reviews
+select * from todays_reviews    

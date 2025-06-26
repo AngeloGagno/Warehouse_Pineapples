@@ -172,6 +172,7 @@ poetry.toml
 
 # dbt profile
 profiles.yml
+.user.yml
 # LSP config files
 pyrightconfig.json
 

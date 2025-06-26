@@ -10,7 +10,6 @@ WORKDIR /usr/app
 # Copiar o seu projeto dbt para dentro do contêiner
 COPY Pineapples /usr/app/Pineapples
 COPY Pineapples/dbt_project.yml /usr/app/dbt_project.yml
-COPY profiles.yml /root/.dbt/profile.yml  
 
 # Comando padrão para rodar dbt
 CMD ["dbt", "run"]

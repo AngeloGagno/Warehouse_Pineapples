@@ -17,10 +17,14 @@ refactor_columns as (
     round(checkin,2) as checkin from reviews_grouped order by competencia
 ),
 last_month as (
-    select competencia::varchar, round(((review / lag(review) over(order by competencia)) -1) * 100,2) as variacao,
+    select competencia::varchar, replace(round(((review / lag(review) over(order by competencia)) -1) * 100,2)::varchar,'.',',') as variacao,
     review as avaliacao_geral, 
     replace(communication::varchar,'.',',') as  comunicacao, 
     replace(checkin::varchar,'.',',') as checkin
     from refactor_columns order by competencia desc
+),
+remove_nulls as (
+    select competencia,coalesce(variacao,'') as variacao, avaliacao_geral, coalesce(comunicacao,'') as comunicacao, coalesce(checkin,'') as checkin 
+    from last_month
 )
-select * from last_month
+select * from remove_nulls

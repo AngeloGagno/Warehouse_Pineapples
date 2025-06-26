@@ -13,12 +13,14 @@ reviews_grouped as (
 group by competencia
 ),
 refactor_columns as (
-    select date_trunc('month',competencia) as competencia, round(review,2) as review , round(communication,2) as communication, 
+    select date_trunc('month',competencia)::date as competencia, round(review,2) as review , round(communication,2) as communication, 
     round(checkin,2) as checkin from reviews_grouped order by competencia
 ),
 last_month as (
-    select competencia, round(((review / lag(review) over(order by competencia)) -1) * 100,2) as variacao,
-    review as avaliacao_geral, communication as comunicacao, checkin
+    select competencia::varchar, round(((review / lag(review) over(order by competencia)) -1) * 100,2) as variacao,
+    review as avaliacao_geral, 
+    replace(communication::varchar,'.',',') as  comunicacao, 
+    replace(checkin::varchar,'.',',') as checkin
     from refactor_columns order by competencia desc
 )
 select * from last_month

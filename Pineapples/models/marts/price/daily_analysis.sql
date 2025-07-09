@@ -13,14 +13,14 @@ month,
 nights,gross_payment from filtered_table
 ), 
 grouped_by_data as (
-select reservation_date, 
-month as checkin_month, 
+select reservation_date::varchar, 
+month::varchar as checkin_month, 
 count(*) as bookings, 
 sum(gross_payment) as gross_payment, 
 avg(gross_payment) as average_booking
 from ordered_month
 where 
-month between date_trunc('month', current_date) and date_trunc('month', current_date)::date + INTERVAL '3 months'
+month between date_trunc('month', reservation_date) and date_trunc('month', reservation_date)::date + INTERVAL '3 months'
 group by reservation_date, month 
 order by reservation_date desc,month desc
 )

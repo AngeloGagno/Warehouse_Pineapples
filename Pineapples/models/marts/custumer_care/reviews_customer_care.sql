@@ -6,7 +6,7 @@ select (case
             when date_part('day', checkin_date) >= 21 
                 then date_trunc('month', checkin_date)::date + interval '21 days'
             else date_trunc('month', checkin_date)::date - interval '1 month' + interval '21 days'
-        end) as competencia,review_value, communication_value, checkin_value from source
+        end) as competencia,coalesce(service_value,communication_value) as review_value, communication_value, checkin_value from source
 ),
 reviews_grouped as (
     select competencia, avg(review_value) as review,avg(communication_value) as communication,avg(checkin_value) as checkin from reviews_competencia

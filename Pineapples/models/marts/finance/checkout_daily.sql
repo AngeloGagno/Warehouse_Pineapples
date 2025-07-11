@@ -12,8 +12,9 @@ bookings_per_zone as (
     from confirmed_bookings b join accommodation_zone a on b.accommodation_id::varchar = a.accommodation_id::varchar
 ),
 checkouts_day as (
-    select date_trunc('month',checkout_date)::date as month_begin, 
-    checkout_date, coalesce(zone::varchar,'Casa Rio') as zone,  
+    select 
+    TO_CHAR(date_trunc('month', checkout_date), 'YYYY-MM-DD')::varchar as month_begin, 
+    checkout_date::varchar, coalesce(zone::varchar,'Casa Rio') as zone,  
     count(*) as checkouts_zone,
     sum(count(*)) OVER (PARTITION BY checkout_date) as checkouts_day   
     from bookings_per_zone

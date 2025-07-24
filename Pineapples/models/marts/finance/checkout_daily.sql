@@ -1,6 +1,6 @@
 with confirmed_bookings as (
     select * from {{ref('int_confirmed_bookings')}}
-    where checkout_date >= '2025-01-01' and checkout_date <= current_date
+    where checkout_date >= '2024-07-01' and checkout_date <= current_date
 ),
 accommodation_zone as (
     select accommodation_id, zone from {{ref('stg_accommodations')}}

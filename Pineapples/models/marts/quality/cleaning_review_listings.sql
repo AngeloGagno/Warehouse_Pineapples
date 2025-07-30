@@ -20,14 +20,15 @@ filtered_data as (
         review_value,
         cleaning_value
     from {{ref('stg_reviews')}}
+    where channel_name in ('Airbnb','Booking')
 ),
 aggregated_reviews as (
     select
         checkin_month,
         accommodation_name,
-        avg(review_value) as avg_review,
+        round(avg(review_value),2) as avg_review,
         count(review_value) as count_reviews,
-        avg(cleaning_value) as avg_cleaning,
+        round(avg(cleaning_value),2) as avg_cleaning,
         count(cleaning_value) as count_cleaning
     from filtered_data
     group by checkin_month, accommodation_name

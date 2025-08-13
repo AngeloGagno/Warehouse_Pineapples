@@ -16,6 +16,7 @@ combinations as (
 filtered_data as (
     select 
         date_trunc('month', checkin_date)::date as checkin_month,
+        channel_name,
         accommodation_name,
         review_value,
         accommodation_value,
@@ -28,6 +29,7 @@ aggregated_reviews as (
     select
         checkin_month,
         accommodation_name,
+        channel_name,
         round(avg(review_value),2) as avg_review,
         count(review_value) as count_reviews,
         round(avg(cleaning_value),2) as avg_cleaning,
@@ -39,12 +41,13 @@ aggregated_reviews as (
         round(avg(customer_care_value),2) as avg_customer_care,
         count(customer_care_value) as count_customer_care
     from filtered_data
-    group by checkin_month, accommodation_name
+    group by checkin_month, accommodation_name,channel_name
 ),
 combined as (
     select 
         c.checkin_month,
         c.accommodation_name,
+        ar.channel_name,
         ar.avg_review,
         ar.count_reviews,
         ar.avg_cleaning,
@@ -88,6 +91,7 @@ final_with_weighted as (
     select 
         checkin_month::date,
         accommodation_name,
+        channel_name,
 
         -- Médias mensais
         avg_review,
@@ -115,6 +119,8 @@ data_cleaned as (
     select 
         checkin_month::varchar,
         accommodation_name,
+        coalesce(channel_name,'') as channel_name,
+
         coalesce(avg_review::varchar,'') as avg_review,
         coalesce(count_reviews::varchar,'') as count_reviews,
         coalesce(avg_cleaning::varchar,'') as avg_cleaning,
@@ -138,6 +144,7 @@ change_dot_comma as (
     select 
         checkin_month,
         accommodation_name,
+        channel_name,
 
         replace(avg_review,'.',',') as avg_review,
         replace(count_reviews,'.',',') as count_reviews,
@@ -154,6 +161,7 @@ change_dot_comma as (
         replace(weighted_customer_care,'.',',') as weighted_customer_care
 
     from data_cleaned
+    where channel_name in ('Airbnb','Booking')
 )
 
 select * from change_dot_comma

@@ -1,0 +1,14 @@
+models:
+  - name: stg_bookings_extras
+    description: Tabela contendo os extras desmembrados
+    columns:
+    
+      - name: booking_id
+        description: Id de cada reserva que contem extras
+        data_tests:
+         - not_null
+      
+      - name: reference 
+        description: Id que se refere ao nome do extra
+        data_tests:
+         - not_null

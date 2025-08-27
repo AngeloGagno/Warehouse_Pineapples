@@ -1,5 +1,5 @@
 with months as (
-    select generate_series('2024-01-01'::date, date_trunc('month', current_date), interval '1 month') as checkin_month
+    select generate_series('2024-01-01'::date, date_trunc('month', current_date), interval '1 month') as checkout_month
 ),
 active_listings as (
     select name as accommodation_name
@@ -8,14 +8,14 @@ active_listings as (
 ),
 combinations as (
     select 
-        m.checkin_month,
+        m.checkout_month,
         a.accommodation_name
     from months m
     cross join active_listings a
 ),
 filtered_data as (
-    select 
-        date_trunc('month', checkin_date)::date as checkin_month,
+    select
+    booking_id, 
         accommodation_name,
         review_value,
         accommodation_value,
@@ -23,10 +23,21 @@ filtered_data as (
         coalesce(accommodation_value, cleaning_value) as maintenance_value,
         coalesce(service_value,communication_value) as customer_care_value
     from {{ref('stg_reviews')}}
+), get_checkout_date as (
+    select booking_id, checkout_date from {{ref('stg_bookings')}}
+),
+merge_reviews_checkout as (
+    select date_trunc('month', checkout_date)::date as checkout_month, 
+        accommodation_name,         
+        review_value,
+        accommodation_value,
+        cleaning_value,
+        maintenance_value,
+        customer_care_value from filtered_data f join get_checkout_date g on f.booking_id = g.booking_id
 ),
 aggregated_reviews as (
     select
-        checkin_month,
+        checkout_month,
         accommodation_name,
         round(avg(review_value),2) as avg_review,
         count(review_value) as count_reviews,
@@ -38,12 +49,12 @@ aggregated_reviews as (
         count(maintenance_value) as count_maintenance,
         round(avg(customer_care_value),2) as avg_customer_care,
         count(customer_care_value) as count_customer_care
-    from filtered_data
-    group by checkin_month, accommodation_name
+    from merge_reviews_checkout
+    group by checkout_month, accommodation_name
 ),
 combined as (
     select 
-        c.checkin_month,
+        c.checkout_month,
         c.accommodation_name,
         ar.avg_review,
         ar.count_reviews,
@@ -57,7 +68,7 @@ combined as (
         ar.count_customer_care
     from combinations c
     left join aggregated_reviews ar
-    on c.checkin_month = ar.checkin_month
+    on c.checkout_month = ar.checkout_month
     and c.accommodation_name = ar.accommodation_name
 ),
 final_with_weighted as (
@@ -81,12 +92,12 @@ final_with_weighted as (
     from combined
     window w as (
         partition by accommodation_name
-        order by checkin_month
+        order by checkout_month
         rows between unbounded preceding and current row
     )
 ), final_table as (
     select 
-        checkin_month::date,
+        checkout_month::date,
         accommodation_name,
 
         -- Médias mensais
@@ -109,11 +120,11 @@ final_with_weighted as (
         case when total_customer_care_count > 0 then round(total_customer_care_sum / total_customer_care_count, 2) else null end as weighted_customer_care
 
     from final_with_weighted
-    order by accommodation_name, checkin_month
+    order by accommodation_name, checkout_month
 ),
 data_cleaned as (
     select 
-        checkin_month::varchar,
+        checkout_month::varchar,
         accommodation_name,
         coalesce(avg_review::varchar,'') as avg_review,
         coalesce(count_reviews::varchar,'') as count_reviews,
@@ -136,7 +147,7 @@ data_cleaned as (
 ,
 change_dot_comma as (
     select 
-        checkin_month,
+        checkout_month,
         accommodation_name,
 
         replace(avg_review,'.',',') as avg_review,

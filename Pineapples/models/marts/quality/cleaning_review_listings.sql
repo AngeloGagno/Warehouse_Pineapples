@@ -6,4 +6,4 @@ cleaning_reviews as (
     count_reviews,avg_cleaning,count_cleaning,
     weighted_review,weighted_cleaning from reviews
 )
-select * from maintenance_reviews
+select * from cleaning_reviews

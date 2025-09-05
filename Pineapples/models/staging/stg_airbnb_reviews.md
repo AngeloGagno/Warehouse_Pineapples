@@ -7,4 +7,4 @@ Este modelo é responsável por renomear colunas da camada Raw (extraída via AP
 | Coluna Original       | Nova Coluna         | Transformação Adicional                    |
 |-----------------------|---------------------|--------------------------------------------|
 | `scrap_ID`            | `scrap_id`          | Apenas renomeada                           |
-| `airbnb_account_id`   | `scrap_id`          | replace(airbnb_account_id,'.0','')                        |
+| `airbnb_account_id`   | `scrap_id`          | replace(airbnb_account_id,'.0','')         |

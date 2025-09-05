@@ -17,6 +17,7 @@ filtered_data as (
     select
     booking_id, 
         accommodation_name,
+        channel_name,
         review_value,
         accommodation_value,
         cleaning_value,
@@ -28,7 +29,8 @@ filtered_data as (
 ),
 merge_reviews_checkout as (
     select date_trunc('month', checkout_date)::date as checkout_month, 
-        accommodation_name,         
+        accommodation_name,  
+        channel_name,       
         review_value,
         accommodation_value,
         cleaning_value,
@@ -39,6 +41,7 @@ aggregated_reviews as (
     select
         checkout_month,
         accommodation_name,
+        channel_name,
         round(avg(review_value),2) as avg_review,
         count(review_value) as count_reviews,
         round(avg(cleaning_value),2) as avg_cleaning,
@@ -50,7 +53,7 @@ aggregated_reviews as (
         round(avg(customer_care_value),2) as avg_customer_care,
         count(customer_care_value) as count_customer_care
     from merge_reviews_checkout
-    group by checkout_month, accommodation_name
+    group by checkout_month, accommodation_name,channel_name
 ),
 combined as (
     select 

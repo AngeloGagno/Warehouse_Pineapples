@@ -1,0 +1,15 @@
+models:
+  - name: stg_beyond_booking_update
+    description: Tabela contendo dados de preço da beyond
+    columns:
+    
+      - name: beyond_id
+        description: preco base do apartamento
+        data_tests:
+         - not_null
+
+      - name: scrap_date
+        description: data de realização do scrapping
+        data_tests:
+         - not_null
+

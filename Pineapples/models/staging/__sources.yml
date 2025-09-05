@@ -19,3 +19,7 @@ sources:
         description: Tabela contendo dados dos proprietarios
       - name: reviews
         description: Tabela contendo avaliações em todos os portais
+      - name: beyond_detailed_data
+        description: Tabela contendo dados de preço de cada apartamento ativo na beyond
+      - name: beyond_booking_update
+        description: Tabela contendo atualizações de ocupação de acordo com a beyond

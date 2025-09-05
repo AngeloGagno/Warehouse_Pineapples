@@ -1,0 +1,19 @@
+models:
+  - name: stg_beyond_detailed_data
+    description: Tabela contendo dados de preço da beyond
+    columns:
+    
+      - name: beyond_id
+        description: Id de cada acomodacao
+        data_tests:
+         - not_null
+         - unique
+      - name: accommodation_id 
+        description: Id da acomodacao na AVANTIO
+        data_tests:
+         - not_null
+         - unique
+      - name: base_price
+        description: preco base do apartamento
+        data_tests:
+         - positive_value

@@ -2,9 +2,8 @@ with months as (
     select generate_series('2024-01-01'::date, date_trunc('month', current_date), interval '1 month') as checkout_month
 ),
 active_listings as (
-    select name as accommodation_name
-    from {{ref('stg_accommodations')}}
-    where status = 'ENABLED'
+    select *
+    from {{ref('dim_accommodations_name')}}
 ),
 combinations as (
     select 

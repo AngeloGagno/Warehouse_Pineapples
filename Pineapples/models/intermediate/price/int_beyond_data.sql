@@ -17,6 +17,7 @@ reviews AS (
 filtered_data AS (
     SELECT 
         sa.name,
+        sbbu.beyond_id,
         r.avg_review_value,            
         bd.price_cluster,
         bd.base_price,
@@ -36,7 +37,7 @@ filtered_data AS (
     ) sbbu 
         ON bd.beyond_id = sbbu.beyond_id
     LEFT JOIN reviews r 
-        ON r.accommodation_name = sa.name  -- juntar por ID
+        ON r.accommodation_name = sa.name  
     WHERE bd.beyond_status IS TRUE
     ORDER BY sa.name
 )

@@ -7,7 +7,11 @@ renamed_columns as (
     checkin_date,
     review_origin as channel_name,
     accommodation_name,
-    zone,
+    case 
+    when accommodation_name like 'CR-%' then 'CasaRio'
+    when accommodation_name like 'HL-%' then 'HostelLeblon'
+    else zone 
+    end as zone,
     review_field,
     positive_review as positive_review_field,
     negative_review as negative_review_field,

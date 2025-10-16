@@ -5,7 +5,7 @@ accommodation as (
     select accommodation_id,name,neighborhood from {{ref('stg_accommodations')}}
 )
 
-select accommodation_id , name,
+select accommodation_id , name as accommodation_name,
 case
 	when a."name" = 'J804' then 0
 	when margin is null and a.neighborhood = 'São Paulo' then 15

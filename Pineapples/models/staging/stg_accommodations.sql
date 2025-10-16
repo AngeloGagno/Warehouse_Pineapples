@@ -5,7 +5,11 @@ with source as (
    status, 
    id_proprietario as owner_id,
    nome_acomodacao as name,
-   zona as zone,
+   case 
+   when nome_acomodacao like 'CR-%' then 'CasaRio'
+   when nome_acomodacao like 'HL-%' then 'HostelLeblon'
+   else zona 
+   end as zone,
    tamanho::numeric as size,
    qtde_quartos as bedrooms,
    qtde_banheiros as bathrooms,

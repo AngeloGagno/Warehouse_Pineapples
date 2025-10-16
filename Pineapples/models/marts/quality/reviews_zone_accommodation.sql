@@ -2,12 +2,16 @@ with reviews as (
     select * from {{ref('stg_reviews')}}
 ),
 accommodation_data as (
-    select name, size, bedrooms, neighborhood from {{ref('int_active_accommodations')}}
+    select name, size, bedrooms, neighborhood from {{ref('stg_accommodations')}}
+    where status = 'ENABLED'
 ),
 create_columns as (
 select date_trunc('month', checkin_date) as checkin_date,
 accommodation_name,
-coalesce(zone,'Casa Rio') as zone,review_value,cleaning_value,coalesce(service_value,communication_value) as customer_value,
+zone,
+review_value,
+cleaning_value,
+coalesce(service_value,communication_value) as customer_value,
 coalesce(accommodation_value,cleaning_value) as maintenance_value
 from reviews
 ),

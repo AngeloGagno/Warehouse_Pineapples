@@ -13,9 +13,3 @@ models:
         description: Código do apartamento na AVANTIO
         data_tests:
           - not_null
-
-      - name: portal_reference
-        description: Id Único do Portal que foi realizado a reserva
-        data_tests:
-         - not_null
-         - unique

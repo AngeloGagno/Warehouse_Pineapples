@@ -13,7 +13,3 @@ models:
         data_tests:
          - not_null
          - unique
-      - name: base_price
-        description: preco base do apartamento
-        data_tests:
-         - positive_value

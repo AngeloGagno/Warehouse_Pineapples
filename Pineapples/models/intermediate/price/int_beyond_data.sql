@@ -22,7 +22,6 @@ filtered_data AS (
         bd.price_cluster,
         bd.base_price,
         bd.minimum_price,
-        bd.last_booking_date,
         sbbu.booked_30_days,
         sbbu.booked_60_days,
         sbbu.booked_90_days,

@@ -8,7 +8,6 @@ remove_null_change_data as (
     price_cluster,
     base_price,
     minimum_price,
-    coalesce(last_booking_date::varchar,'')::varchar as last_booking_date, 
     booked_30_days,
     booked_60_days,
     booked_90_days,
